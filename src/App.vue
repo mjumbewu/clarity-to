@@ -1,13 +1,24 @@
 <template>
-  <div id="app">
-    <h1>Django VueJs Template</h1>
-    <div id="nav">
-     <router-link :to="{ name: 'home' }">Vue</router-link> |
-     <router-link :to="{ name: 'messages' }">Django Rest</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <router-view/>
 </template>
+
+<script>
+export default {
+  created() {
+    this.downloadData()
+  },
+  methods: {
+    downloadData () {
+      Vue.http.get('http://localhost:8000/api/root/')
+        .then(response => response.json())
+        .then(data => {
+          this.$store
+          this.$router.push('/define')
+        })
+    }
+  }
+}
+</script>
 
 <style>
 #app {
